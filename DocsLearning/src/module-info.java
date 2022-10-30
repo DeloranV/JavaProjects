@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author rolan
- *
- */
-module DocsLearning {
-}
