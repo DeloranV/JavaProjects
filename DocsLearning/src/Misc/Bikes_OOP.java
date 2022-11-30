@@ -4,7 +4,7 @@ class Bike {
 
 	static final int WHEELS_NUM = 2; // STATIC CONSTANT FOR ALL BIKE INSTANCES
 	static private int bikeID = 0; // INCREMENTED EVERY TIME A BIKE IS MADE FROM A CONSTRUCTOR
-	private int gears_Number;
+	private int gears_Number; // MAKE VARIABLES AND METHODS PRIVATE WHENEVER POSSIBLE
 	int price;
 	int warranty;
 
@@ -29,7 +29,8 @@ class Bike {
 				+ "    Gwarancja: " + warranty + " lat(a)" + "    Ilość kół: " + WHEELS_NUM);
 	}
 
-	public static void outputGears(Bike rower) {
+	final public static void outputGears(Bike rower) { // METHOD DECLARED FINAL - CANNOT BE OVERRIDEN BY A SUBCLASS -
+														// USE IN CASES WHERE ITS CRITICAL FOR CONSISTENCY
 		System.out.println("\nIlość biegów wybranego roweru: " + rower.gears_Number);
 	}
 }
@@ -53,7 +54,7 @@ class MountainBike extends Bike { // EXTENDS BIKE CLASS WITH 2 VARS
 	}
 }
 
-class RoadBike extends Bike {
+class RoadBike extends Bike implements bikeTestDrive {
 
 	int max_vel;
 	int weight;
@@ -71,6 +72,21 @@ class RoadBike extends Bike {
 				.print("    Prędkość max: " + max_vel + " km/h" + "    Waga: " + weight + " kg" + "    Rower Sportowy");
 		return; // OPTIONAL IN VOID FOR FLOW-CONTROL
 	}
+
+	public void bikeRide() { // INTEFRACE METHOD IMPLEMENTATION
+		System.out.println("\n\nJedziesz z prędkością: " + max_vel);
+	}
+}
+
+interface bikeTestDrive {
+
+	void bikeRide(); // ABSTRACT METHOD - NEEDS TO BE IN EVERY IMPLEMENTATION
+
+	default void koniecJazdy() { // DEFAULT METHOD - DEFINED IN INTERFACE - USEFUL WHEN EXTENDING INTERFACES -
+									// ALTERNATIVELY EXTEND INTERFACE
+		System.out.println("\nJazda testowa zakończona.");
+	}
+
 }
 
 public class Bikes_OOP {
@@ -82,6 +98,9 @@ public class Bikes_OOP {
 		rower2.outputAll();
 		RoadBike rower3 = new RoadBike(9, 8, 7, 6, 5);
 		rower3.outputAll();
+
+		rower3.bikeRide();
+		rower3.koniecJazdy();
 
 		System.out.println("\n\n" + (rower1 instanceof Bike));
 

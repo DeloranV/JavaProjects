@@ -12,6 +12,7 @@ interface heading {
 	void turn(char pozycja);
 
 	void printState();
+
 }
 
 class car implements heading {
